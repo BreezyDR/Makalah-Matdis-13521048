@@ -1,10 +1,15 @@
 from queue import PriorityQueue
 
 class Graph:
+    # Pembuatan graf berarah berbobot untuk algoritma Dijkstra
     def __init__(self, simpul):
         self.banyaksimpul = simpul
+        # Inisialisasi adjacency matriks dengan nilai -9999: Tidak terhubung sama sekali
+        # Nilai matriks adjacency m[i][j] adalah bobot antara kota asal i dan kota tujuan j
         self.sisi = [[-9999 for i in range(simpul)] for j in range(simpul)]
+        # Daftar kota yang telah dikunjungi
         self.telah_dikunjungi = []
+        # Daftar semua kota dalam graf
         self.daftarkota = []
     def tambah_nama_kota(self, namakota):
         self.daftarkota.append(namakota)    
@@ -17,8 +22,10 @@ class GraphA:
     def __init__(self, adjlist):
         self.adjlist = adjlist
     def tetangga(self, kotaseberang):
+        # Daftar kota tetangga/adjacent dari kota asal
         return self.adjlist[kotaseberang]
     def heuristic(self, banyakkota):
+        # Inisalisasi h(n)
         H = {"Jakarta": 1, "Singapore": 1, "Kuala Lumpur": 1,
             "Hong Kong": 1, "Bangkok": 1, "Tokyo": 1}
         return H[banyakkota]
@@ -86,8 +93,8 @@ def penerbangan_termurah_dijkstra(graf, awal, akhir):
             if graf.sisi[kota_terkini][tetangga] != -9999:
                 jarak = graf.sisi[kota_terkini][tetangga]
                 if tetangga not in graf.telah_dikunjungi:
-                    harga_lama = hash[tetangga]
                     harga_baru = hash[kota_terkini] + jarak
+                    harga_lama = hash[tetangga]
                     if harga_baru < harga_lama:
                         queue.put((harga_baru, tetangga))
                         hash[tetangga] = harga_baru
