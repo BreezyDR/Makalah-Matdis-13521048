@@ -25,20 +25,6 @@ class GraphA:
             if n == None:
                 print("Rute termurah tidak ditemukan.")
                 return None
-            if n == tujuan:
-                count = harga_terkini[n]
-                reconstructPath = []
-                while adjmap[n] != n:
-                    reconstructPath.append(n)
-                    n = adjmap[n]
-                reconstructPath.append(asal)
-                reconstructPath.reverse()
-                print("Biaya penerbangan adalah Rp%d.000" % count)
-                print("Rute termurah adalah:", asal, end='')
-                for stops in reconstructPath:
-                    if stops != asal:
-                        print(" -->", stops, end='')
-                return reconstructPath
             for (a, bobot) in self.tetangga(n):
                 if a not in openlist and a not in closedlist:
                     openlist.add(a)
@@ -53,6 +39,20 @@ class GraphA:
                             openlist.add(a)
             openlist.remove(n)
             closedlist.add(n)
+            if n == tujuan:
+                count = harga_terkini[n]
+                reconstructPath = []
+                while adjmap[n] != n:
+                    reconstructPath.append(n)
+                    n = adjmap[n]
+                reconstructPath.append(asal)
+                reconstructPath.reverse()
+                print("Biaya penerbangan adalah Rp%d.000" % count)
+                print("Rute termurah adalah:", asal, end='')
+                for stops in reconstructPath:
+                    if stops != asal:
+                        print(" -->", stops, end='')
+                return reconstructPath
         print("Rute termurah tidak ditemukan.")
         return None
 
