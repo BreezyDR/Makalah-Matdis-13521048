@@ -10,8 +10,8 @@ class GraphA:
             "Hong Kong": 1, "Bangkok": 1, "Tokyo": 1}
         return H[banyakkota]
     def rute_termurah_astar(self, asal, tujuan):
-        openlist = set([asal])
-        closedlist = set([])
+        openlist = [asal]
+        closedlist = []
         count = 0
         adjmap = {}
         adjmap[asal] = asal
@@ -27,7 +27,7 @@ class GraphA:
                 return None
             for (a, bobot) in self.tetangga(n):
                 if a not in openlist and a not in closedlist:
-                    openlist.add(a)
+                    openlist.append(a)
                     adjmap[a] = n
                     harga_terkini[a] = harga_terkini[n] + bobot
                 else:
@@ -36,9 +36,9 @@ class GraphA:
                         adjmap[a] = n
                         if a in closedlist:
                             closedlist.remove(a)
-                            openlist.add(a)
+                            openlist.append(a)
             openlist.remove(n)
-            closedlist.add(n)
+            closedlist.append(n)
             if n == tujuan:
                 count = harga_terkini[n]
                 reconstructPath = []
